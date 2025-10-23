@@ -1,1 +1,0 @@
-# A small example in Stata
