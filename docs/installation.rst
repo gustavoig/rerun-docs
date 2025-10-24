@@ -4,10 +4,6 @@ Installation
 This page explains how to install and configure **ReRun**.  
 ReRun runs on **Windows** and **Linux**, and can execute analyses with **locally installed software** (Stata, Python, R) or inside **containers** (Docker or Singularity) for reproducibility.
 
-.. note::
-
-   macOS support is limited due to a FilePicker issue in Flet v0.28.3.
-
 
 1. System Requirements
 ----------------------
@@ -17,6 +13,16 @@ ReRun runs on **Windows** and **Linux**, and can execute analyses with **locally
 - Windows 10 or later
 - Linux
 - macOS: currently limited (FilePicker bug in Flet v0.28.3)
+
+.. note::
+
+   In Linux, **ReRun** depends on **Zenity**. To install Zenity on Ubuntu/Debian run the following command:
+
+   .. code-block:: bash
+
+      sudo apt-get install zenity
+
+
 
 **Runtime**
 

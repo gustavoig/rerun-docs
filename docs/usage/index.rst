@@ -37,16 +37,20 @@ Basic Concepts
 Typical Workflow
 ----------------
 
-1. **Create a new replication or load an existing one.**
- - Replications contain all configuration files, scripts, and workflow definitions.
+1. **Create a new replication or load an existing one.** 
+
+ - Replications contain all configuration files, scripts, and workflow definitions. 
 
 2. **Define Steps.**
+
  - Each Step represents a stage in your analysis.
 
 3. **Define Jobs.**
+
  - Each Job specifies an executable script and its dependencies.
 
 4. **Configure job settings**  
+
  - Set the main path for the job
  - Set the main script 
  - Choose the container (or instead local mode)
@@ -54,10 +58,13 @@ Typical Workflow
  - Choose the command (e.g. ``stata-mp -b do``)
 
 5. **Run the replication.**  
+
  - Execute Steps sequentially.
  - Launch Jobs within each Step in parallel.- Display progress and logs in real time.
 
-6. **Review results.** Once complete, outputs and logs are stored in designated directories for documentation and verification.
+6. **Review results.** 
+
+ - Once complete, outputs and logs are stored in designated directories for documentation and verification.
 
 
 Interface Overview
@@ -118,6 +125,7 @@ The following subsections describe each aspect of ReRun in detail.
    :maxdepth: 2
 
    stata_small_example
+   interface_reference
 
 
 Next Steps
