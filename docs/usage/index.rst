@@ -125,6 +125,7 @@ The following subsections describe each aspect of ReRun in detail.
    :maxdepth: 2
 
    stata_small_example
+   configuration_files
    interface_reference
 
 
