@@ -243,7 +243,7 @@ Jobs Window
 
 **Confirm Job Removal**
 
-.. image:: ../_static/stata_small_example/04_jobs_window/08_jobs_window_job_confirm_remove.png
+.. image:: ../_static/stata_small_example/04_jobs_window/10_jobs_window_job_confirm_remove.png
    :alt: Confirm job removal
    :width: 640
 
