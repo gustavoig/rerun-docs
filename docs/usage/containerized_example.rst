@@ -49,9 +49,6 @@ Job 1 — ``job1.do``
 
     ***************************************************
     * Parallel Job 1 (container/local)
-    * - Reads data from ${path_source}\auto.dta
-    * - EDA, correlation, regression, margins
-    * - Writes: job1_example.log
     * - Approx. runtime: 30 seconds
     ***************************************************
     version 18.0
@@ -94,9 +91,6 @@ Job 2 — ``job2.do``
 
     ***************************************************
     * Parallel Job 2 (container/local)
-    * - Reads data from ${path_source}\auto.dta
-    * - Weight binning, ANOVA, grouped means
-    * - Writes: job2_example.log
     * - Approx. runtime: 30 seconds
     ***************************************************
     version 18.0
