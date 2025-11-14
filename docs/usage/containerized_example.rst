@@ -63,7 +63,7 @@ Job 1 — ``job1.do``
 
     log using "job1_example.log", replace
 
-    use "${path_source}\auto.dta", clear
+    use "${path_source}/auto.dta", clear
 
     describe
     summarize price mpg weight, detail
@@ -75,7 +75,7 @@ Job 1 — ``job1.do``
 
     preserve
     collapse (mean) price mpg weight, by(foreign)
-    export delimited using "${path_main}\job1_means_by_foreign.csv", replace
+    export delimited using "${path_main}/job1_means_by_foreign.csv", replace
     restore
 
     forvalues t = 1/6 {
@@ -108,7 +108,7 @@ Job 2 — ``job2.do``
 
     log using "job2_example.log", replace
 
-    use "${path_source}\auto.dta", clear
+    use "${path_source}/auto.dta", clear
 
     generate ln_price = ln(price)
     xtile weight_bin = weight, nq(5)
@@ -120,7 +120,7 @@ Job 2 — ``job2.do``
 
     preserve
     collapse (mean) price mpg weight ln_price, by(weight_bin)
-    export delimited using "${path_main}\job2_means_by_weightbin.csv", replace
+    export delimited using "${path_main}/job2_means_by_weightbin.csv", replace
     restore
 
     forvalues t = 1/6 {
