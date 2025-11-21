@@ -217,6 +217,13 @@ Jobs Window
    :alt: Back button in jobs window
    :width: 640
 
+
+**Duplicate Job**
+
+.. image:: ../_static/stata_small_example/04_jobs_window/05_jobs_window_duplicate_job.png
+   :alt: Duplicate selected job
+   :width: 640
+
 **Remove Selected Jobs**
 
 .. image:: ../_static/stata_small_example/04_jobs_window/05_jobs_window_remove_selected.png
