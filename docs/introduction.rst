@@ -9,8 +9,15 @@ Introduction
 Overview
 --------
 
-**ReRun** is a desktop application that helps researchers execute and replicate scientific analyses using **Stata**, **Python**, or **R**.  
-It provides a consistent framework to design workflows, organize analyses, and ensure best practices in **replicability**, **transparency**, and **computational reproducibility**.
+**ReRun** is a desktop application that helps researchers execute and replicate scientific analyses using **Stata**, **Python**, or **R**. It automatically generates 
+standardized replication packages — including code, configuration files, logs, documentation, and execution metadata — so that results can be easily 
+shared and verified by the research community. ReRun is particularly useful for Research Data Centers that provide access to confidential data, 
+allowing the production of certified replication packages.
+
+
+The application provides a consistent framework to design workflows, organize analyses, and ensure best practices in **replicability**, **transparency**, and **computational reproducibility**.
+
+
 
 ReRun allows workflows to be built from **Steps** and **Jobs**:
 
@@ -28,8 +35,9 @@ Key Features
 - **Containerized execution** – Run analyses in Docker or Singularity containers for full reproducibility.
 - **Local or container mode** – Choose between your local runtime or isolated environments.
 - **Transparent execution** – Each job produces logs, timestamps, and status information.
-- **Cross-platform compatibility** – Works on Windows and Linux systems.
-  - *Note: macOS support is limited due to a FilePicker issue in Flet v0.28.3.*
+- **Cross-platform compatibility** – Works on Windows and Linux systems.    
+  - *Note: macOS support is limited due to a FilePicker issue in Flet v0.28.3.* 
+- **Certified reproducibility** – Compute hashes for all input and output files allowing verification of results without rerunning the computation. 
 
 
 Who Uses ReRun
@@ -38,9 +46,9 @@ Who Uses ReRun
 ReRun is designed for:
 
 - Researchers conducting reproducible empirical analyses.
+- Third-party entities that need to verify reproducibility of results.  
 - Researchers managing large or multi-language pipelines.
-- Computational social scientists who need transparent, replicable workflows.
-- Academic teams maintaining shared analytical environments.
+- Research Data Centers that provide access to confidential data.
 
 
 Why ReRun

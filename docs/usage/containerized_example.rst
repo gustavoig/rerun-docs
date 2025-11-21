@@ -409,15 +409,24 @@ This pattern scales to more complex workflows and to other runtimes such as Pyth
 
 .. note::
    This example would be almost identical when using **Apptainer/Singularity** instead of Docker.  
-   The only change is that, in the Job Configuration window, you must provide the path to the 
+   The only change is that, in the Job Configuration window, you must provide the path to the
    ``.sif`` image for the job.
 
    Note that Apptainer does **not** run natively on Windows.  
    If you have **WSL** installed and Apptainer available inside it, ReRun will automatically:
-   
-   - detect that the backend is Apptainer,  
-   - run the container inside WSL, and  
+
+   - detect that the backend is Apptainer,
+   - run the container inside WSL, and
    - map your replication directory into the WSL environment.
 
    No additional configuration is required from the user.
+
+   Keep in mind that the execution command differs between Docker and Apptainer.  
+   Docker requires explicit directory mounts (e.g., ``-v host_path:container_path``), while  
+   Apptainer automatically **binds** several host directories (such as your home folder)  
+   into the container.  
+   Because of these auto-binds, Apptainer jobs often require fewer arguments in the command
+   line, and the file paths inside the container will typically match the host paths more closely.
+
+
 
