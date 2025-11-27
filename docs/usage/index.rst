@@ -49,14 +49,16 @@ Typical Workflow
    - **Data path**  
      This is the central directory where your input data is stored.  
      The data files are *not* copied into the replication directory.  
-     Instead, this path is recorded in the automatically generated configuration files  
-     (e.g., ``global path_source ...`` in **Stata**).  
+     Instead, this path is recorded in the replication configuration file ``config.json``. 
+     At runtime, the automatically generated configuration files read this value to define the 
+     data location (e.g., ``global path_source ...`` in **Stata**).  
      The data directory may contain subfolders, as long as your scripts reference them correctly.
 
 
 2. **Define Steps**
 
    - Each Step represents a major stage in your analysis.  
+   - ReRun creates a dedicated folder for each Step.
    - Users may write documentation for the Step in the Step Text Field; this text is stored in the Step’s
      ``readme.md`` file.  
    - Steps can be added or deleted using the controls in the Steps Panel.  
@@ -149,7 +151,7 @@ Typical Workflow
 
 7. **Re-run**
 
-   You can repeat an analysis by loading an existing replication. In the **Load Replication** panel, provide the following paths:
+   You can repeat an analysis by loading an existing replication. Start the app; in the **Load Replication** panel, provide the following paths:
 
    - **Input Path**  
      The directory of the replication you want to re-run.  
@@ -174,7 +176,7 @@ Typical Workflow
      If you want to run the replication with a different dataset or a relocated data directory, you must provide the new path here.
 
 
-  Please note that the user can add to, remove, or adjust any component of the loaded replication.
+  Please note that the user can add, remove, or adjust any component of the loaded replication.
 
 
 Interface Overview
