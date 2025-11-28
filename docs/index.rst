@@ -30,5 +30,6 @@ Contents
    introduction
    installation
    usage/index
+   verification
    troubleshooting
 
