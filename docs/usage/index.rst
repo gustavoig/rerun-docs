@@ -239,6 +239,7 @@ The following subsections describe each aspect of ReRun in detail.
    stata_small_example
    configuration_files
    containerized_example
+   two_step_example
    interface_reference
 
 
