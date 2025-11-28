@@ -53,10 +53,15 @@ Clone the repository:
 
 .. code-block:: bash
 
-   git clone https://github.com/your-org/rerun.git
-   cd rerun
+   git clone https://github.com/BPLIM/rerun.git
 
 Or download the ZIP from your repository hosting and extract it to a folder.
+
+Change directory to the cloned/extracted folder:
+
+.. code-block:: bash
+
+   cd rerun
 
 
 3. Create and Activate a Virtual Environment
@@ -68,11 +73,13 @@ It is recommended to isolate ReRun’s dependencies.
 
    python -m venv .venv
 
-**Windows (PowerShell):**
+Activate the virtual environment:
+
+**Windows:**
 
 .. code-block:: powershell
 
-   .venv\Scripts\Activate.ps1
+   .venv\Scripts\activate
 
 **Linux:**
 
