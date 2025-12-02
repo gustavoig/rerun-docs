@@ -96,18 +96,18 @@ Step 1 — Jobs Panel
    :alt: Step 1 Jobs panel
    :width: 650
 
-Click **Add Job** twice to create **Job 1** and **Job 2**.
+Click **Configure** on **Job 1**.
 
 
-Configure Job 1 (Stata)
-~~~~~~~~~~~~~~~~~~~~~~~
+Configure Job 1 - Step 1 (Stata)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: ../_static/mixed_example/05_job1_config.png
    :alt: Job 1 configuration (Stata)
    :width: 650
 
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
-- **Main Script** → ``job1_stata.do``
+- **Main Script** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts/job1_stata.do``
 - **Container Image** → *leave empty*  
   (we rely on the BPLIM-provided Apptainer image)
 - **Command** → ``stata-mp -b do``
@@ -115,8 +115,8 @@ Configure Job 1 (Stata)
 Save.
 
 
-Configure Job 2 (Python)
-~~~~~~~~~~~~~~~~~~~~~~~~
+Configure Job 2 - Step 1 (Python)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: ../_static/mixed_example/06_job2_config.png
    :alt: Job 2 configuration (Python)
@@ -126,7 +126,7 @@ Configure Job 2 (Python)
 - **Main Script** → ``job2_python_descriptives.py``
 - **Command** → ``python3``
 
-Save jobs and return to the Steps Panel.
+Save jobs and return to the Steps Panel. Click **Configure** on Step 2.
 
 
 Step 2 — Sequential Job (Python Combine)
@@ -139,33 +139,27 @@ Step 2 — Jobs Panel
    :alt: Step 2 Jobs panel
    :width: 650
 
-Click **Add Job** to create **Job 3**.
+Click **Configure** on **Job 1**.
 
 
-Configure Job 3 (Python)
-~~~~~~~~~~~~~~~~~~~~~~~~
+Configure Job 1 - Step 2 (Python)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: ../_static/mixed_example/08_job3_config.png
    :alt: Job 3 configuration
    :width: 650
 
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
-- **Main Script** → ``job3_python_combine.py``
+- **Main Script** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts/job3_python_combine.py``
 - **Command** → ``python3``
 
-.. important::
-   ReRun automatically exposes variables pointing to previous job outputs inside ``config.py``:
-
-   - ``PATH_STEP01_JOB01`` → path to Step 1, Job 1 folder  
-   - ``PATH_STEP01_JOB02`` → path to Step 1, Job 2 folder  
-
-   This makes it easy for Job 3 to read the output files created in Step 1.
+Save the configurations.
 
 
 Running the Replication
 -----------------------
 
-Back in the Steps Panel, click **Run Steps**.
+After saving the Jobs for **Step 2**, go back to the Steps Panel and click **Run Steps**.
 
 .. image:: ../_static/mixed_example/09_run_steps.png
    :alt: Run Steps button
@@ -187,6 +181,12 @@ Step 2 — Python job running **after both Step 1 jobs finish**:
    :alt: Step 2 execution
    :width: 650
 
+Replication finished after all steps completion
+
+.. image:: ../_static/mixed_example/12_replication_finished.png
+   :alt: Replication finished
+   :width: 650
+
 
 Job Scripts (Full Contents)
 ---------------------------
@@ -200,32 +200,50 @@ Step 1 — Job 1 (Stata)
 .. code-block:: stata
    :caption: job1_stata.do
 
-    ***************************************************
-    * Step 1 — Job 1 (Stata)
-    ***************************************************
-    version 18.0
-    clear all
-    set more off
+   ***************************************************
+   * job1_stata.do  — Step 1, Job 1 (Stata)
+   * - Reads data from ${path_source}/auto.dta
+   * - Produces summary stats and group means
+   * - Writes: results/stata_job1.log, results/stata_summary.csv
+   ***************************************************
+   version 18.0
+   clear all
+   set more off
 
-    include profile.do
-    cd "${job_path}"
+   * Load ReRun environment (rep_path, job_path, path_main, path_source, etc.)
+   include profile.do
 
-    mkdir results
+   * The main script directory 
+   cd "${path_main}"
 
-    log using "results/stata_job1.log", replace
+   * Ensure results folder exists
+   global path_results "${job_path}/results"
+   capture mkdir "${path_results}"
 
-    use "${path_source}/auto.dta", clear
+   * Start log inside job_path/results
+   log using "${path_results}/stata_job1.log", replace
 
-    collapse (mean) price mpg weight, by(foreign)
-    export delimited using "results/stata_summary.csv", replace
+   *** Load data ***
+   use "${path_source}/auto", clear
 
-    forvalues t = 1/6 {
-        di as txt "Job1 progress: " `t' "/6"
-        sleep 5000
-    }
+   *** Summaries ***
+   describe
+   summarize price mpg weight, detail
 
-    log close
-    exit 0
+   *** Group means ***
+   preserve
+      collapse (mean) price mpg weight, by(foreign)
+      export delimited using "${path_results}/stata_summary.csv", replace
+   restore
+
+   *** Simulated runtime (~30 seconds) ***
+   forvalues t = 1/6 {
+      di as txt "Stata Job1 progress: " `t' " / 6"
+      sleep 5000
+   }
+
+   log close
+   exit 0
 
 
 Step 1 — Job 2 (Python)
@@ -234,38 +252,69 @@ Step 1 — Job 2 (Python)
 .. code-block:: python
    :caption: job2_python_descriptives.py
 
-    import time
-    import logging
-    from pathlib import Path
-    import pandas as pd
-    from config import PATH_SOURCE, JOB_PATH
+   """
+   job2_python_descriptives.py — Step 1, Job 2 (Python)
+   - Reads data from PATH_SOURCE
+   - Writes results into JOB_PATH/results
+   - Logs all progress to results/python_job2.log
+   """
 
-    def setup_logger(log_path):
-        logging.basicConfig(
-            level=logging.INFO,
-            format="%(asctime)s [%(levelname)s] %(message)s",
-            handlers=[logging.FileHandler(log_path, encoding="utf-8")]
-        )
+   import time
+   import logging
+   from pathlib import Path
 
-    def main():
-        job_dir = Path(JOB_PATH)
-        results_dir = job_dir / "results"
-        results_dir.mkdir(exist_ok=True)
+   import pandas as pd
 
-        log_file = results_dir / "python_job2.log"
-        setup_logger(log_file)
+   from config import PATH_SOURCE, JOB_PATH
 
-        df = pd.read_stata(Path(PATH_SOURCE) / "auto.dta")
 
-        df[["price","mpg","weight"]].describe().to_csv(results_dir / "python_summary.csv")
-        df[["price","mpg","weight"]].corr().to_csv(results_dir / "python_corr.csv")
+   def setup_logger(log_path: Path):
+      """Configure logging to file only."""
+      logging.basicConfig(
+         level=logging.INFO,
+         format="%(asctime)s [%(levelname)s] %(message)s",
+         handlers=[
+               logging.FileHandler(log_path, mode="w", encoding="utf-8")
+         ]
+      )
 
-        for t in range(6):
-            logging.info(f"Progress {t+1}/6")
-            time.sleep(5)
 
-    if __name__ == "__main__":
-        main()
+   def main() -> None:
+      results_dir = JOB_PATH / "results"
+      results_dir.mkdir(exist_ok=True)
+
+      log_file = results_dir / "python_job2.log"
+      setup_logger(log_file)
+
+      logging.info("Starting Python Job 2")
+
+      data_file = PATH_SOURCE / "auto.dta"
+      summary_out = results_dir / "python_summary.csv"
+      corr_out = results_dir / "python_corr.csv"
+
+      logging.info(f"Reading data from: {data_file}")
+      df = pd.read_stata(data_file)
+
+      vars_of_interest = ["price", "mpg", "weight"]
+
+      # Summary statistics
+      df[vars_of_interest].describe().to_csv(summary_out)
+      logging.info(f"Summary written to: {summary_out}")
+
+      # Correlation matrix
+      df[vars_of_interest].corr().to_csv(corr_out)
+      logging.info(f"Correlation matrix written to: {corr_out}")
+
+      # Simulated runtime (~30s)
+      for t in range(6):
+         logging.info(f"Progress {t + 1} / 6")
+         time.sleep(5)
+
+      logging.info("Python Job 2 completed successfully")
+
+
+   if __name__ == "__main__":
+      main()
 
 
 Step 2 — Job 3 (Python Combine)
@@ -274,43 +323,94 @@ Step 2 — Job 3 (Python Combine)
 .. code-block:: python
    :caption: job3_python_combine.py
 
-    import logging
-    from pathlib import Path
-    import pandas as pd
+   """
+   job3_python_combine.py — Step 2, Job 1 (Python)
+   - Combines results from Step 1 jobs
+   - Writes combined_report.txt to JOB_PATH/results
+   - Logs all progress to results/combine_job.log
+   """
 
-    from config import JOB_PATH, PATH_STEP01_JOB01, PATH_STEP01_JOB02
+   import logging
+   from pathlib import Path
 
-    def setup_logger(log_path):
-        logging.basicConfig(
-            level=logging.INFO,
-            format="%(asctime)s [%(levelname)s] %(message)s",
-            handlers=[logging.FileHandler(log_path, encoding="utf-8")]
-        )
+   import pandas as pd
 
-    def main():
-        job_dir = Path(JOB_PATH)
-        results_dir = job_dir / "results"
-        results_dir.mkdir(exist_ok=True)
+   from config import JOB_PATH, PATH_STEP01_JOB01, PATH_STEP01_JOB02
 
-        log_file = results_dir / "combine_job.log"
-        setup_logger(log_file)
 
-        stata_summary = Path(PATH_STEP01_JOB01) / "results/stata_summary.csv"
-        py_summary = Path(PATH_STEP01_JOB02) / "results/python_summary.csv"
-        py_corr = Path(PATH_STEP01_JOB02) / "results/python_corr.csv"
+   def setup_logger(log_path: Path):
+      """Configure logging to file only."""
+      logging.basicConfig(
+         level=logging.INFO,
+         format="%(asctime)s [%(levelname)s] %(message)s",
+         handlers=[
+               logging.FileHandler(log_path, mode="w", encoding="utf-8")
+         ]
+      )
 
-        df_stata = pd.read_csv(stata_summary)
-        df_sum = pd.read_csv(py_summary, index_col=0)
-        df_corr = pd.read_csv(py_corr, index_col=0)
 
-        with open(results_dir / "combined_report.txt", "w") as f:
-            f.write("Mixed-Language Example: Combined Results\n\n")
-            f.write(df_stata.to_string(index=False) + "\n\n")
-            f.write(df_sum.to_string() + "\n\n")
-            f.write(df_corr.to_string() + "\n")
+   def main() -> None:
+      results_dir = JOB_PATH / "results"
+      results_dir.mkdir(exist_ok=True)
 
-    if __name__ == "__main__":
-        main()
+      log_file = results_dir / "combine_job.log"
+      setup_logger(log_file)
+
+      logging.info("Starting Step 2 — Combine Job")
+
+      stata_summary = PATH_STEP01_JOB01 / "results" / "stata_summary.csv"
+      py_summary = PATH_STEP01_JOB02 / "results" / "python_summary.csv"
+      py_corr = PATH_STEP01_JOB02 / "results" / "python_corr.csv"
+
+      logging.info(f"Reading Stata summary: {stata_summary.as_posix()}")
+      df_stata = pd.read_csv(stata_summary)
+
+      logging.info(f"Reading Python summary: {py_summary.as_posix()}")
+      df_py_summary = pd.read_csv(py_summary, index_col=0)
+
+      logging.info(f"Reading Python correlation: {py_corr.as_posix()}")
+      df_py_corr = pd.read_csv(py_corr, index_col=0)
+
+      report_path = results_dir / "combined_report.txt"
+
+      logging.info(f"Writing final report to: {report_path}")
+
+      with report_path.open("w", encoding="utf-8") as f:
+         f.write("Mixed-language Replication: Stata + Python\n")
+         f.write("=========================================\n\n")
+
+         f.write("1. Stata summary (means by foreign)\n")
+         f.write("-----------------------------------\n")
+         f.write(df_stata.to_string(index=False))
+         f.write("\n\n")
+
+         f.write("2. Python summary\n")
+         f.write("-----------------\n")
+         f.write(df_py_summary.to_string())
+         f.write("\n\n")
+
+         f.write("3. Python correlation matrix\n")
+         f.write("----------------------------\n")
+         f.write(df_py_corr.to_string())
+         f.write("\n")
+
+      logging.info("Combine job completed successfully")
+
+
+   if __name__ == "__main__":
+      main()
+
+
+.. important::
+   ReRun automatically exposes variables pointing to previous job outputs inside ``config.py``:
+
+   - ``PATH_STEP01_JOB01`` → path to Step 1, Job 1 folder  
+   - ``PATH_STEP01_JOB02`` → path to Step 1, Job 2 folder  
+
+   This makes it easy for Job 3 to read the output files created in Step 1. 
+
+   In Stata the path will be exposed as the global ``path_step##_job##`` (and used as 
+   ``${path_step##_job##}``) and in R as the variable ``path_step##_job##``. 
 
 
 Output Structure
@@ -320,35 +420,40 @@ After running the replication on the BPLIM server:
 
 .. code-block:: text
 
-   /bplimext/projects/pxxx_BPLIM/work_area/rerun/Replications/RepNNN/
+   /bplimext/projects/pxxx_BPLIM/work_area/rerun/Replications/Rep001/
    ├── config.json
-   ├── manifest.json
+   ├── datafiles.txt
    ├── log.txt
+   ├── manifest.json
+   ├── readme.md
+   ├── replication_tree.txt
    ├── Step01/
+   │   ├── readme.md
    │   ├── Job01/
-   │   │   └── results/stata_summary.csv
+   │   │   ├── job1_stata.do
+   │   │   ├── job1_stata.log
+   │   │   ├── profile.do
+   │   │   ├── readme.md
+   │   │   └── results/
+   │   │       ├── stata_job1.log
+   │   │       └── stata_summary.csv
    │   └── Job02/
+   │       ├── config.py
+   │       ├── job2_python_descriptives.py
+   │       ├── python_requirements.txt
+   │       ├── readme.md
    │       └── results/
-   │           ├── python_summary.csv
-   │           └── python_corr.csv
+   │           ├── python_corr.csv
+   │           ├── python_job2.log
+   │           └── python_summary.csv
    └── Step02/
-       └── Job01/
-           └── results/
+      ├── readme.md
+      └── Job01/
+         ├── config.py
+         ├── job3_python_combine.py
+         ├── python_requirements.txt
+         ├── readme.md
+         └── results/
+               ├── combine_job.log
                └── combined_report.txt
-
-
-Summary
--------
-
-This example demonstrates how to:
-
-1. Mix **Stata** and **Python** in the same workflow  
-2. Run jobs **in parallel** within a step  
-3. Run steps **sequentially**  
-4. Use ReRun’s **auto-generated path variables** to access outputs from earlier steps  
-5. Execute everything in a **Singularity/Apptainer** environment on the BPLIM external server  
-6. Produce clean, isolated, reproducible job outputs  
-
-Even though this demonstration was run in BPLIM, the workflow can be reproduced on any system with
-Stata and Python installed — either natively or via Docker/Singularity.
 
