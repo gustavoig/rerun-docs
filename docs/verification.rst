@@ -4,12 +4,9 @@ Verifying Reproducibility
 ReRun produces standardized replication packages that contain all code, logs,
 documentation, and hashed file records required for independent verification.  
 To validate that a replication has not been altered and that all outputs match
-the original run, ReRun provides an external verification tool available at:
+the original run, ReRun provides an external verification script ``verify_replication.py``. 
 
-``https://github.com/BPLIM/rerun-tools``
-
-This repository contains the script ``verify_replication.py``. This script allows 
-a third party to compare the hashes stored in the replication’s ``manifest.json`` file 
+This script allows a third party to compare the hashes stored in the replication’s ``manifest.json`` file 
 with newly computed hashes of all files in the replication directory, without the 
 need to re-run the replication. 
 
@@ -40,14 +37,7 @@ Follow these steps to verify a replication:
 1. **Copy the replication folder** (e.g., ``Rep001``) to a directory on your machine.  
    You may place it anywhere; only the internal file structure must remain unchanged.
 
-2. **Download or clone the verification tool**:
-
-   .. code-block:: bash
-
-      git clone https://github.com/BPLIM/rerun-tools.git
-      cd rerun-tools
-
-3. **Run the verifier** by passing the path to ``manifest.json``:
+2. **Run the verifier** by passing the path to ``manifest.json``:
 
    .. code-block:: bash
 
