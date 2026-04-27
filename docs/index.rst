@@ -16,10 +16,8 @@ ReRun allows analyses to be organized into **Steps** and **Jobs**:
 
 The application supports both **local** execution (using installed software) and **containerized** execution via **Docker** or **Singularity**, ensuring that analyses can be reproduced across different environments.
 
-ReRun is cross-platform and runs on **Windows** and **Linux**.  
+ReRun is cross-platform and runs on **Windows** , **MacOS** and **Linux**.  
 
-.. note:: 
-   macOS support is limited due to a `FilePicker` issue in Flet v0.28.3 — see the `Flet issue tracker <https://github.com/flet-dev/flet/issues/5334>`_ for details.
 
 Contents
 --------
@@ -30,6 +28,5 @@ Contents
    introduction
    installation
    usage/index
-   verification
    troubleshooting
 

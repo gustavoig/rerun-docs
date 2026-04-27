@@ -50,19 +50,19 @@ Launching the Replication
 Start App Panel
 ~~~~~~~~~~~~~~~
 
-.. image:: ../_static/mixed_example/01_start_app.png
+.. image:: ../_static/mixed_example/01_welcome_view.png
    :alt: Start ReRun application
-   :width: 650
+   :width: 820
 
-Click **Start New Replication**.
+Click **Start Project**.
 
 
 Provide Input Paths
 ~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_static/mixed_example/02_input_paths.png
+.. image:: ../_static/mixed_example/02_start_paths.png
    :alt: Input paths for mixed example
-   :width: 650
+   :width: 820
 
 Fill in the BPLIM paths:
 
@@ -73,7 +73,7 @@ Fill in the BPLIM paths:
 - **Data Path**  
   ``/bplimext/projects/pxxx_BPLIM/initial_dataset``
 
-Click **Start** to generate the replication structure.
+Click **Proceed** to generate the replication structure.
 
 
 Step 1 — Parallel Jobs (Stata + Python)
@@ -82,62 +82,60 @@ Step 1 — Parallel Jobs (Stata + Python)
 Steps Panel
 ~~~~~~~~~~~
 
-.. image:: ../_static/mixed_example/03_steps_panel.png
-   :alt: Steps panel overview
-   :width: 650
+Click the **Add Step** to add two steps and then click **Configure** on each step to add a description.
 
-Click **Configure** on Step 1.
+.. image:: ../_static/mixed_example/03_step1_desc.png
+   :alt: Step 1 description
+   :width: 820
 
+.. image:: ../_static/mixed_example/04_step2_desc.png
+   :alt: Step 2 description
+   :width: 820
 
-Step 1 — Jobs Panel
-~~~~~~~~~~~~~~~~~~~
-
-.. image:: ../_static/mixed_example/04_step1_jobs_panel.png
-   :alt: Step 1 Jobs panel
-   :width: 650
-
-Click **Configure** on **Job 1**.
+Click **Add Job** twice on Step1 in order to add two jobs. Then click **Configure** on **Job 1**.
 
 
 Configure Job 1 - Step 1 (Stata)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_static/mixed_example/05_job1_config.png
+.. image:: ../_static/mixed_example/06_step1_job1_config.png
    :alt: Job 1 configuration (Stata)
-   :width: 650
+   :width: 820
 
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
 - **Main Script** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts/job1_stata.do``
 - **Container Image** → *leave empty*  
   (we rely on the BPLIM-provided Apptainer image)
-- **Command** → ``stata-mp -b do``
+- **Interpreter / Executable** → ``stata-mp``
 
-Save.
+Save, and add a small description.
+
+.. image:: ../_static/mixed_example/05_step1_job1_desc.png
+   :alt: Job 1 description (Stata)
+   :width: 820
 
 
 Configure Job 2 - Step 1 (Python)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_static/mixed_example/06_job2_config.png
+.. image:: ../_static/mixed_example/08_step1_job2_config.png
    :alt: Job 2 configuration (Python)
-   :width: 650
+   :width: 820
 
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
 - **Main Script** → ``job2_python_descriptives.py``
-- **Command** → ``python3``
+- **Interpreter / Executable** → ``python3.10``
 
-Save jobs and return to the Steps Panel. Click **Configure** on Step 2.
+Save, and add a small description.
+
+.. image:: ../_static/mixed_example/07_step1_job2_desc.png
+   :alt: Job 2 description (Stata)
+   :width: 820
 
 
 Step 2 — Sequential Job (Python Combine)
 ----------------------------------------
 
-Step 2 — Jobs Panel
-~~~~~~~~~~~~~~~~~~~
-
-.. image:: ../_static/mixed_example/07_step2_jobs_panel.png
-   :alt: Step 2 Jobs panel
-   :width: 650
 
 Click **Configure** on **Job 1**.
 
@@ -145,47 +143,51 @@ Click **Configure** on **Job 1**.
 Configure Job 1 - Step 2 (Python)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../_static/mixed_example/08_job3_config.png
+.. image:: ../_static/mixed_example/10_step2_job1_config.png
    :alt: Job 3 configuration
-   :width: 650
+   :width: 820
 
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
 - **Main Script** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts/job3_python_combine.py``
-- **Command** → ``python3``
+- **Command** → ``python3.10``
 
-Save the configurations.
+Save the configurations and add a small description.
+
+.. image:: ../_static/mixed_example/09_step2_job1_desc.png
+   :alt: Job 3 description (Python)
+   :width: 820
 
 
 Running the Replication
 -----------------------
 
-After saving the Jobs for **Step 2**, go back to the Steps Panel and click **Run Steps**.
+After saving the Jobs configurations, click **Run Project**.
 
-.. image:: ../_static/mixed_example/09_run_steps.png
+.. image:: ../_static/mixed_example/11_run_project.png
    :alt: Run Steps button
-   :width: 650
+   :width: 820
 
 
-Execution Window
+Execution View
 ----------------
 
 Step 1 — Stata and Python jobs running **in parallel**:
 
-.. image:: ../_static/mixed_example/10_execution_parallel.png
+.. image:: ../_static/mixed_example/12_jobs_starting.png
    :alt: Step 1 parallel execution
-   :width: 650
+   :width: 820
 
-Step 2 — Python job running **after both Step 1 jobs finish**:
+Step 1 finishing:
 
-.. image:: ../_static/mixed_example/11_execution_step2.png
-   :alt: Step 2 execution
-   :width: 650
+.. image:: ../_static/mixed_example/13_step1_finished.png
+   :alt: Step 1 finishing
+   :width: 820
 
-Replication finished after all steps completion
+Step 2 — Python job running **after both Step 1 jobs finish** and replication finished after all steps completion:
 
-.. image:: ../_static/mixed_example/12_replication_finished.png
+.. image:: ../_static/mixed_example/14_step2_start_finish.png
    :alt: Replication finished
-   :width: 650
+   :width: 820
 
 
 Job Scripts (Full Contents)
@@ -421,19 +423,18 @@ After running the replication on the BPLIM server:
 .. code-block:: text
 
    /bplimext/projects/pxxx_BPLIM/work_area/rerun/Replications/Rep001/
-   ├── config.json
-   ├── datafiles.txt
-   ├── log.txt
-   ├── manifest.json
-   ├── readme.md
-   ├── replication_tree.txt
+   ├── rerun_version
+   ├── rerun_config.json
+   ├── rerun_log.txt
+   ├── rerun_readme.md
+   ├── rerun_replication_tree.txt
    ├── Step01/
-   │   ├── readme.md
+   │   ├── rerun_readme.md
    │   ├── Job01/
    │   │   ├── job1_stata.do
    │   │   ├── job1_stata.log
    │   │   ├── profile.do
-   │   │   ├── readme.md
+   │   │   ├── rerun_readme.md
    │   │   └── results/
    │   │       ├── stata_job1.log
    │   │       └── stata_summary.csv
@@ -441,18 +442,18 @@ After running the replication on the BPLIM server:
    │       ├── config.py
    │       ├── job2_python_descriptives.py
    │       ├── python_requirements.txt
-   │       ├── readme.md
+   │       ├── rerun_readme.md
    │       └── results/
    │           ├── python_corr.csv
    │           ├── python_job2.log
    │           └── python_summary.csv
    └── Step02/
-      ├── readme.md
+      ├── rerun_readme.md
       └── Job01/
          ├── config.py
          ├── job3_python_combine.py
          ├── python_requirements.txt
-         ├── readme.md
+         ├── rerun_readme.md
          └── results/
                ├── combine_job.log
                └── combined_report.txt

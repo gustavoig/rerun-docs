@@ -1,377 +1,835 @@
-Interface Reference (Button Legend)
-===================================
+Interface Reference
+===================
 
-This section serves as a reference for the user interface.
-
-
-Application Window
-------------------
-
-**Main Application Window**
-
-.. image:: ../_static/stata_small_example/01_app_window/01_app_window.png
- :alt: ReRun application main window
-   :width: 640
-
-**Load Replication Button**
-
-.. image:: ../_static/stata_small_example/01_app_window/02_load_replication.png
-   :alt: Load replication button
-   :width: 640
-
-**Start New Replication Button**
-
-.. image:: ../_static/stata_small_example/01_app_window/03_start_new_replication.png
-   :alt: Start new replication button
-   :width: 640
+This page is a complete UI inventory for ReRun, based strictly on current UI components in ``src/rerun/ui``.
 
 
-Start/Load Replication Window
------------------------------
-
-**Start New Replication Window**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/01_start_new_window.png
-   :alt: Start new replication window
-   :width: 640
-
-**Setting Output Path**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/02_start_new_window_output_path.png
-   :alt: Setting output path in start new window
-   :width: 640
-
-**Setting Data Path**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/03_start_new_window_data_path.png
-   :alt: Setting data path in start new window
-   :width: 640
-
-**Starting New Replication**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/04_start_new_window_start.png
-   :alt: Starting new replication
-   :width: 640
-
-**Load Replication Window**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/05_load_window.png
-   :alt: Load replication window
-   :width: 640
-
-**Selecting Input Path**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/06_load_window_input_path.png
-   :alt: Selecting input path when loading replication
-   :width: 640
-
-**Selecting Output Path**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/07_load_window_output_path.png
-   :alt: Selecting output path when loading replication
-   :width: 640
-
-**Selecting Data Path**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/08_load_window_data_path.png
-   :alt: Selecting data path when loading replication
-   :width: 640
-
-**Loading Existing Replication**
-
-.. image:: ../_static/stata_small_example/02_start_load_window/08_load_window_load_replication.png
-   :alt: Loading existing replication
-   :width: 640
-
-
-Steps Window
+Welcome View
 ------------
 
-**Steps Window Overview**
+Initial landing screen (`WelcomeView`) with entry points to start or load a project, plus an About toggle.
 
-.. image:: ../_static/stata_small_example/03_steps_window/01_steps_window.png
-   :alt: Steps window overview
-   :width: 640
+**Start View**
 
-**Back Button**
+Overview of the welcome screen before choosing a workflow.
 
-.. image:: ../_static/stata_small_example/03_steps_window/02_steps_window_back_button.png
-   :alt: Steps window back button
-   :width: 640
+.. image:: ../_static/ui_reference/01_welcome_view/01_start_view.png
+   :alt: Start View
+   :width: 900
 
-**Add Step Button**
+**Start Project**
 
-.. image:: ../_static/stata_small_example/03_steps_window/03_steps_window_add_button.png
-   :alt: Add step button
-   :width: 640
+Starts a new project and opens the start-path workflow.
 
-**Open Project Notes**
+.. image:: ../_static/ui_reference/01_welcome_view/02_start_project.png
+   :alt: Start Project
+   :width: 900
 
-.. image:: ../_static/stata_small_example/03_steps_window/04_steps_window_notes_button.png
-   :alt: Open project notes button
-   :width: 640
+**Load Project**
 
-**Run Workflow Button**
+Opens the load-project workflow for an existing replication.
 
-.. image:: ../_static/stata_small_example/03_steps_window/05_steps_window_run_button.png
-   :alt: Run workflow button
-   :width: 640
+.. image:: ../_static/ui_reference/01_welcome_view/03_load_project.png
+   :alt: Load Project
+   :width: 900
 
-**Generate Code Button**
+**About**
 
-.. image:: ../_static/stata_small_example/03_steps_window/06_steps_window_code_button.png
-   :alt: Generate Code button
-   :width: 640
+Switches to the About panel from the welcome screen.
 
-**Remove Selected Steps**
+.. image:: ../_static/ui_reference/01_welcome_view/04_about.png
+   :alt: About
+   :width: 900
 
-.. image:: ../_static/stata_small_example/03_steps_window/07_steps_window_remove_selected.png
-   :alt: Remove selected steps
-   :width: 640
+About View
+----------
 
-**Step Text Field**
+About panel content from the welcome screen, including repository and documentation links.
 
-.. image:: ../_static/stata_small_example/03_steps_window/08_steps_window_step_text_field.png
-   :alt: Step text field
-   :width: 640
+**About View**
 
-**Markdown Preview**
+Overview of the About panel with app description and metadata.
 
-.. image:: ../_static/stata_small_example/03_steps_window/09_steps_window_step_text_field_preview.png
-   :alt: Step markdown preview
-   :width: 640
+.. image:: ../_static/ui_reference/02_about_view/01_about_view.png
+   :alt: About View
+   :width: 900
 
-**Project Notes Button**
+**Back**
 
-.. image:: ../_static/stata_small_example/03_steps_window/10_steps_window_entry_project_notes.png
-   :alt: Enter project notes button
-   :width: 640
+Returns from the About panel to the welcome options.
 
-**Project Notes Window**
+.. image:: ../_static/ui_reference/02_about_view/02_back.png
+   :alt: Back
+   :width: 900
 
-.. image:: ../_static/stata_small_example/03_steps_window/11_steps_window_project_notes_window.png
-   :alt: Project notes window
-   :width: 640
+**Github**
 
-**Editing Project Notes**
+Opens the project repository link from the About panel.
 
-.. image:: ../_static/stata_small_example/03_steps_window/12_steps_window_project_notes_text.png
-   :alt: Project notes text editing
-   :width: 640
+.. image:: ../_static/ui_reference/02_about_view/03_github.png
+   :alt: Github
+   :width: 900
 
-**Project Notes Preview**
+**Documentation**
 
-.. image:: ../_static/stata_small_example/03_steps_window/13_steps_window_project_notes_preview.png
-   :alt: Project notes preview
-   :width: 640
+Opens the documentation link from the About panel.
 
-**Back from Notes Window**
+.. image:: ../_static/ui_reference/02_about_view/04_documentation.png
+   :alt: Documentation
+   :width: 900
 
-.. image:: ../_static/stata_small_example/03_steps_window/14_steps_window_project_notes_back.png
-   :alt: Back button from notes window
-   :width: 640
+Start New Project View
+----------------------
 
-**Step Remove Button**
+`StartProjectView` path form used to create a new replication context.
 
-.. image:: ../_static/stata_small_example/03_steps_window/15_steps_window_step_remove_button.png
-   :alt: Step remove button
-   :width: 640
+**Start View**
 
-**Step Removal Confirmation**
+Overview of the welcome screen before choosing a workflow.
 
-.. image:: ../_static/stata_small_example/03_steps_window/16_steps_window_step_confirm_remove.png
-   :alt: Step removal confirmation
-   :width: 640
+.. image:: ../_static/ui_reference/03_start_view/01_start_view.png
+   :alt: Start View
+   :width: 900
+
+**Output Path**
+
+Output path field for selecting where replication artifacts are written.
+
+.. image:: ../_static/ui_reference/03_start_view/02_output_path.png
+   :alt: Output Path
+   :width: 900
+
+**Browse**
+
+Opens file/directory chooser for the current path input.
+
+.. image:: ../_static/ui_reference/03_start_view/03_browse.png
+   :alt: Browse
+   :width: 900
+
+**Remove**
+
+Clears the selected path from the current path input.
+
+.. image:: ../_static/ui_reference/03_start_view/04_remove.png
+   :alt: Remove
+   :width: 900
+
+**Restricted Data Path**
+
+Restricted data path field used by runtime configuration.
+
+.. image:: ../_static/ui_reference/03_start_view/05_restricted_data_path.png
+   :alt: Restricted Data Path
+   :width: 900
+
+**Non Restricted Data Path**
+
+Non-restricted/shareable data path field copied into outputs.
+
+.. image:: ../_static/ui_reference/03_start_view/06_non_restricted_data_path.png
+   :alt: Non Restricted Data Path
+   :width: 900
+
+**Back**
+
+Navigates back to the previous workflow screen.
+
+.. image:: ../_static/ui_reference/03_start_view/07_back.png
+   :alt: Back
+   :width: 900
+
+**Proceed**
+
+Validates selected paths and proceeds to the project configuration.
+
+.. image:: ../_static/ui_reference/03_start_view/08_proceed.png
+   :alt: Proceed
+   :width: 900
+
+Load Existing Project View
+--------------------------
+
+`LoadProjectView` form used to restore an existing replication and optionally override paths.
+
+**Load Project View**
+
+Overview of the load-project form and required/optional path fields.
+
+.. image:: ../_static/ui_reference/04_load_project_view/01_load_project_view.png
+   :alt: Load Project View
+   :width: 900
+
+**Input Path**
+
+Input path selector for an existing replication folder.
+
+.. image:: ../_static/ui_reference/04_load_project_view/02_input_path.png
+   :alt: Input Path
+   :width: 900
+
+**Browse**
+
+Opens file/directory chooser for the current path input.
+
+.. image:: ../_static/ui_reference/04_load_project_view/03_browse.png
+   :alt: Browse
+   :width: 900
+
+**Remove**
+
+Clears the selected path from the current path input.
+
+.. image:: ../_static/ui_reference/04_load_project_view/04_remove.png
+   :alt: Remove
+   :width: 900
+
+**Output Path**
+
+Optional output path override for the loaded replication.
+
+.. image:: ../_static/ui_reference/04_load_project_view/05_output_path.png
+   :alt: Output Path
+   :width: 900
+
+**Restricted Data Path**
+
+Optional restricted-data override for the loaded replication.
+
+.. image:: ../_static/ui_reference/04_load_project_view/06_restricted_data_path.png
+   :alt: Restricted Data Path
+   :width: 900
+
+**Non-Restricted Data Path**
+
+Optional non-restricted data override for the loaded replication.
+
+.. image:: ../_static/ui_reference/04_load_project_view/07_non_restricted-data-path.png
+   :alt: Non-RestrictedRestricted Data Path
+   :width: 900
+
+**Back**
+
+Navigates back to the previous workflow screen.
+
+.. image:: ../_static/ui_reference/04_load_project_view/08_back.png
+   :alt: Back
+   :width: 900
+
+**Proceed**
+
+Validates selected paths and attempts to load the saved project configuration.
+
+.. image:: ../_static/ui_reference/04_load_project_view/09_proceed.png
+   :alt: Proceed
+   :width: 900
+
+Project Node (Left Panel)
+-------------------------
+
+Top-level project controls in the tree header (`ProjectNode`).
+
+**Project Node**
+
+Project header row in the left tree with global project actions.
+
+.. image:: ../_static/ui_reference/05_project_node/01_project_node.png
+   :alt: Project Node
+   :width: 900
+
+**Add Step**
+
+Adds a new step node to the project tree.
+
+.. image:: ../_static/ui_reference/05_project_node/02_add_step.png
+   :alt: Add Step
+   :width: 900
+
+**Configure Certification**
+
+Opens certification settings for the current project.
+
+.. image:: ../_static/ui_reference/05_project_node/03_configure_certification.png
+   :alt: Configure Certification
+   :width: 900
+
+**Add Project Notes**
+
+Opens project notes editor for project-level markdown documentation.
+
+.. image:: ../_static/ui_reference/05_project_node/04_add_project_notes.png
+   :alt: Add Project Notes
+   :width: 900
+
+**Reset Replication Paths**
+
+Opens the path-reset view to update replication path settings.
+
+.. image:: ../_static/ui_reference/05_project_node/05_reset_replication_paths.png
+   :alt: Reset Replication Paths
+   :width: 900
+
+**Restart Project**
+
+Restarts the project session from the tree header action.
+
+.. image:: ../_static/ui_reference/05_project_node/06_restart_project.png
+   :alt: Restart Project
+   :width: 900
+
+Certification Settings View
+---------------------------
+
+`CertificationView` controls for TRO/TRACE certification settings.
+
+**Certification View**
+
+Overview of certification settings sections and controls.
+
+.. image:: ../_static/ui_reference/06_certification_view/01_certification_view.png
+   :alt: Certification View
+   :width: 900
+
+**Enable Certification**
+
+Toggles certification settings on/off and enables related fields.
+
+.. image:: ../_static/ui_reference/06_certification_view/02_enable_certification.png
+   :alt: Enable Certification
+   :width: 900
+
+**Trs File Path**
+
+Selects the TRS profile path used for certification.
+
+.. image:: ../_static/ui_reference/06_certification_view/03_trs_file_path.png
+   :alt: Trs File Path
+   :width: 900
+
+**Browse**
+
+Opens file/directory chooser for the current path input.
+
+.. image:: ../_static/ui_reference/06_certification_view/04_browse.png
+   :alt: Browse
+   :width: 900
+
+**Remove**
+
+Clears the selected path from the current path input.
+
+.. image:: ../_static/ui_reference/06_certification_view/05_remove.png
+   :alt: Remove
+   :width: 900
+
+**GPG Directory Path**
+
+Sets the GPG directory path used for signing operations.
+
+.. image:: ../_static/ui_reference/06_certification_view/06_gpl_directory_path.png
+   :alt: GPG Directory Path
+   :width: 900
+
+**GPG Fingerprint**
+
+GPG fingerprint field used for signature identity.
+
+.. image:: ../_static/ui_reference/06_certification_view/07_gpl_fingerprint.png
+   :alt: GPG Fingerprint
+   :width: 900
+
+**GPG Passphrase**
+
+GPG passphrase field (masked input).
+
+.. image:: ../_static/ui_reference/06_certification_view/08_gpl_passphrase.png
+   :alt: GPG Passphrase
+   :width: 900
+
+**Enable Signing**
+
+Enables or disables signing behavior for certification.
+
+.. image:: ../_static/ui_reference/06_certification_view/09_enable_signing.png
+   :alt: Enable Signing
+   :width: 900
+
+**Enable Timestamp Request**
+
+Enables or disables trusted timestamp requests.
+
+.. image:: ../_static/ui_reference/06_certification_view/10_enable_timestamp_request.png
+   :alt: Enable Timestamp Request
+   :width: 900
+
+**Http Proxy**
+
+HTTP proxy setting used during certification network calls.
+
+.. image:: ../_static/ui_reference/06_certification_view/11_http_proxy.png
+   :alt: Http Proxy
+   :width: 900
+
+**Https Proxy**
+
+HTTPS proxy setting used during certification network calls.
+
+.. image:: ../_static/ui_reference/06_certification_view/12_https_proxy.png
+   :alt: Https Proxy
+   :width: 900
+
+**Import Settings**
+
+Imports certification settings from a JSON file.
+
+.. image:: ../_static/ui_reference/06_certification_view/13_import_settings.png
+   :alt: Import Settings
+   :width: 900
+
+**Export Settings**
+
+Exports current certification settings to a JSON file.
+
+.. image:: ../_static/ui_reference/06_certification_view/14_export_settings.png
+   :alt: Export Settings
+   :width: 900
+
+**Save**
+
+Saves certification settings to the current project state.
+
+.. image:: ../_static/ui_reference/06_certification_view/15_save.png
+   :alt: Save
+   :width: 900
+
+Project Notes View
+------------------
+
+`ProjectConfigView` markdown editor for project-level notes.
+
+**Project Notes Views**
+
+Overview of the project notes editor view.
+
+.. image:: ../_static/ui_reference/07_project_notes_view/01_project_notes_views.png
+   :alt: Project Notes Views
+   :width: 900
+
+**Write**
+
+Write mode for project notes markdown content.
+
+.. image:: ../_static/ui_reference/07_project_notes_view/02_write.png
+   :alt: Write
+   :width: 900
+
+**Preview**
+
+Preview mode rendering project notes markdown.
+
+.. image:: ../_static/ui_reference/07_project_notes_view/03_preview.png
+   :alt: Preview
+   :width: 900
+
+Reset Replication Paths View
+----------------------------
+
+`ResetReplicationPathsView` for editing saved replication paths in active mode.
+
+**Reset Replication Paths View**
+
+Overview of path reset form for active projects.
+
+.. image:: ../_static/ui_reference/08_reset_replication_paths_view/01_reset_replication_paths_view.png
+   :alt: Reset Replication Paths View
+   :width: 900
+
+**Output Path**
+
+Output path field for selecting where replication artifacts are written.
+
+.. image:: ../_static/ui_reference/08_reset_replication_paths_view/02_output_path.png
+   :alt: Output Path
+   :width: 900
+
+**Browse**
+
+Opens file/directory chooser for the current path input.
+
+.. image:: ../_static/ui_reference/08_reset_replication_paths_view/03_browse.png
+   :alt: Browse
+   :width: 900
+
+**Remove**
+
+Clears the selected path from the current path input.
+
+.. image:: ../_static/ui_reference/08_reset_replication_paths_view/04_remove.png
+   :alt: Remove
+   :width: 900
+
+**Restricted Data Path**
+
+Restricted data path field used by runtime configuration.
+
+.. image:: ../_static/ui_reference/08_reset_replication_paths_view/05_restricted_data_path.png
+   :alt: Restricted Data Path
+   :width: 900
+
+**Non Restricted Data Path**
+
+Non-restricted/shareable data path field copied into outputs.
+
+.. image:: ../_static/ui_reference/08_reset_replication_paths_view/06_non_restricted_data_path.png
+   :alt: Non Restricted Data Path
+   :width: 900
+
+**Save**
+
+Validates and saves updated replication paths.
+
+.. image:: ../_static/ui_reference/08_reset_replication_paths_view/07_save.png
+   :alt: Save
+   :width: 900
+
+Step Node (Left Panel)
+----------------------
+
+Per-step controls in the left tree (`StepNode`).
+
+**Step Node**
+
+Overview of one step row and its inline controls.
+
+.. image:: ../_static/ui_reference/09_step_node/01_step_node.png
+   :alt: Step Node
+   :width: 900
 
 **Configure Step**
 
-.. image:: ../_static/stata_small_example/03_steps_window/17_steps_window_step_configure.png
-   :alt: Step configure button
-   :width: 640
+Opens step configuration editor for description and skip flag.
 
+.. image:: ../_static/ui_reference/09_step_node/02_configure_step.png
+   :alt: Configure Step
+   :width: 900
 
-Jobs Window
------------
+**Add Job**
 
-**Jobs Window Overview**
+Adds a new job under the selected step.
 
-.. image:: ../_static/stata_small_example/04_jobs_window/01_jobs_window.png
-   :alt: Jobs window overview
-   :width: 640
+.. image:: ../_static/ui_reference/09_step_node/03_add_job.png
+   :alt: Add Job
+   :width: 900
 
-**Add Job Button**
+**Duplicate Step**
 
-.. image:: ../_static/stata_small_example/04_jobs_window/02_jobs_window_add_button.png
-   :alt: Add job button
-   :width: 640
+Duplicates a configured step (enabled when rules permit).
 
-**Save Jobs Button**
+.. image:: ../_static/ui_reference/09_step_node/04_duplicate_step.png
+   :alt: Duplicate Step
+   :width: 900
 
-.. image:: ../_static/stata_small_example/04_jobs_window/03_jobs_window_save_button.png
-   :alt: Save jobs button
-   :width: 640
+**Delete Step**
 
-**Back Button**
+Deletes the selected step node.
 
-.. image:: ../_static/stata_small_example/04_jobs_window/04_jobs_window_back_button.png
-   :alt: Back button in jobs window
-   :width: 640
+.. image:: ../_static/ui_reference/09_step_node/05_delete_step.png
+   :alt: Delete Step
+   :width: 900
 
+**Checkboxes**
+
+Step/job selection checkboxes for bulk actions.
+
+.. image:: ../_static/ui_reference/09_step_node/06_checkboxes.png
+   :alt: Checkboxes
+   :width: 900
+
+**Delete Multiple Nodes**
+
+Deletes multiple selected step nodes.
+
+.. image:: ../_static/ui_reference/09_step_node/07_delete_multiple_nodes.png
+   :alt: Delete Multiple Nodes
+   :width: 900
+
+Step Configuration View
+-----------------------
+
+`StepConfigView` for step description and skip behavior.
+
+**Step Config View**
+
+Overview of step description editor and skip checkbox.
+
+.. image:: ../_static/ui_reference/10_step_config_view/01_step_config_view.png
+   :alt: Step Config View
+   :width: 900
+
+**Write**
+
+Write mode for step markdown description.
+
+.. image:: ../_static/ui_reference/10_step_config_view/03_write.png
+   :alt: Write
+   :width: 900
+
+**Preview**
+
+Preview mode for step markdown description.
+
+.. image:: ../_static/ui_reference/10_step_config_view/04_preview.png
+   :alt: Preview
+   :width: 900
+
+**Skip Step**
+
+Toggles whether the step should be skipped during execution. In this case, the contents of the step are copied 
+to the output directory but not run.
+
+.. image:: ../_static/ui_reference/10_step_config_view/05_skip_step.png
+   :alt: Skip Step
+   :width: 900
+
+Job Node (Left Panel)
+---------------------
+
+Per-job controls in the left tree (`JobNode`).
+
+**Job Node**
+
+Overview of one job row and its inline controls.
+
+.. image:: ../_static/ui_reference/11_job_node/01_job_node.png
+   :alt: Job Node
+   :width: 900
+
+**Configure Job**
+
+Opens job configuration editor for the selected job.
+
+.. image:: ../_static/ui_reference/11_job_node/02_configure_job.png
+   :alt: Configure Job
+   :width: 900
 
 **Duplicate Job**
 
-.. image:: ../_static/stata_small_example/04_jobs_window/05_jobs_window_duplicate_job.png
-   :alt: Duplicate selected job
-   :width: 640
+Duplicates a configured job under the same step.
 
-**Remove Selected Jobs**
+.. image:: ../_static/ui_reference/11_job_node/03_duplicate_job.png
+   :alt: Duplicate Job
+   :width: 900
 
-.. image:: ../_static/stata_small_example/04_jobs_window/05_jobs_window_remove_selected.png
-   :alt: Remove selected jobs
-   :width: 640
+**Delete Job**
 
-**Job Text Field**
+Deletes the selected job node.
 
-.. image:: ../_static/stata_small_example/04_jobs_window/06_jobs_window_job_text_field.png
-   :alt: Job text field
-   :width: 640
+.. image:: ../_static/ui_reference/11_job_node/04_delete_job.png
+   :alt: Delete Job
+   :width: 900
 
-**Job Markdown Preview**
+**Checkboxes**
 
-.. image:: ../_static/stata_small_example/04_jobs_window/07_jobs_window_job_text_preview.png
-   :alt: Job markdown preview
-   :width: 640
+Job selection checkboxes for bulk actions.
 
-**Job Remove Button**
+.. image:: ../_static/ui_reference/11_job_node/05_checkboxes.png
+   :alt: Checkboxes
+   :width: 900
 
-.. image:: ../_static/stata_small_example/04_jobs_window/09_jobs_window_job_remove.png
-   :alt: Job remove button
-   :width: 640
+**Delete Multiple Nodes**
 
-**Confirm Job Removal**
+Deletes multiple selected job nodes.
 
-.. image:: ../_static/stata_small_example/04_jobs_window/10_jobs_window_job_confirm_remove.png
-   :alt: Confirm job removal
-   :width: 640
+.. image:: ../_static/ui_reference/11_job_node/06_delete_multiple_nodes.png
+   :alt: Delete Multiple Nodes
+   :width: 900
 
-**Configure Job Button**
+Job Configuration View (Configurations)
+---------------------------------------
 
-.. image:: ../_static/stata_small_example/04_jobs_window/08_jobs_window_job_configure.png
-   :alt: Configure job button
-   :width: 640
+Configuration controls from `JobConfigView` (paths, runtime, container, dependencies).
 
+**Job Config View Configurations**
 
-Job Configuration Window
-------------------------
+Overview of job configuration fields and validation status.
 
-**Job Configuration Window**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/01_jobconfig_window.png
-   :alt: Job configuration window overview
-   :width: 640
-
-**Cancel Button**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/02_jobconfig_window_cancel_button.png
-   :alt: Cancel button in job configuration
-   :width: 640
-
-**Save Configuration Button**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/03_jobconfig_window_save_button.png
-   :alt: Save configuration button
-   :width: 640
-
-**Setting Main Path**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/04_jobconfig_window_main_path.png
-   :alt: Setting main path
-   :width: 640
-
-**Selecting Main Script**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/05_jobconfig_window_main_script.png
-   :alt: Selecting main script
-   :width: 640
-
-**Container Image Field**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/06_jobconfig_window_container_image.png
-   :alt: Container image field
-   :width: 640
-
-**Container Definition Field**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/07_jobconfig_window_container_definition.png
-   :alt: Container definition field
-   :width: 640
-
-**Command Field**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/08_jobconfig_window_command.png
-   :alt: Command field
-   :width: 640
-
-**Dependencies Section**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/09_jobconfig_window_dependencies.png
-   :alt: Job dependencies configuration
-   :width: 640
-
-**Tools Section**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/10_jobconfig_window_tools.png
-   :alt: Tools section in job configuration
-   :width: 640
-
-**Save Configurations**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/12_jobconfig_window_save_configurations.png
-   :alt: Save configurations action
-   :width: 640
-
-**Save Jobs**
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/13_jobconfig_window_save_jobs.png
-   :alt: Save jobs action
-   :width: 640
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/01_job_config_view_configurations.png
+   :alt: Job Config View Configurations
+   :width: 900
 
 
-Execution Window
-----------------
+**Main Path**
 
-**Run Steps**
+Directory path containing files required by the job.
 
-.. image:: ../_static/stata_small_example/06_execution_window/01_run_steps.png
-   :alt: Running steps window
-   :width: 640
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/03_main_path.png
+   :alt: Main Path
+   :width: 900
 
-**Execution Window Overview**
+**Browse**
 
-.. image:: ../_static/stata_small_example/06_execution_window/02_execution_window.png
-   :alt: Execution window overview
-   :width: 640
+Opens file/directory chooser for the current path input.
 
-**Stop Button**
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/04_browse.png
+   :alt: Browse
+   :width: 900
 
-.. image:: ../_static/stata_small_example/06_execution_window/03_execution_window_stop_button.png
-   :alt: Stop button during execution
-   :width: 640
+**Remove**
 
-**Close Button (Blocked)**
+Clears the selected path from the current path input.
 
-.. image:: ../_static/stata_small_example/06_execution_window/04_execution_window_close_button_blocked.png
-   :alt: Close button blocked during execution
-   :width: 640
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/05_remove.png
+   :alt: Remove
+   :width: 900
 
-**Replication Finished Message**
+**Main Script**
 
-.. image:: ../_static/stata_small_example/06_execution_window/05_execution_window_replication_finished.png
-   :alt: Replication finished message
-   :width: 640
+Main script path for the job.
 
-**Back to Steps**
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/06_main_script.png
+   :alt: Main Script
+   :width: 900
 
-.. image:: ../_static/stata_small_example/06_execution_window/06_execution_window_back_to_steps.png
-   :alt: Return to steps after execution
-   :width: 640
+**Executable**
+
+Executable/interpreter used to run the main script.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/07_executable.png
+   :alt: Executable
+   :width: 900
+
+**Dependencies**
+
+Optional dependencies that are copied/registered with the job.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/08_dependencies.png
+   :alt: Dependencies
+   :width: 900
+
+**Tools Path**
+
+Optional tools directory copied into the job runtime context.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/09_tools_path.png
+   :alt: Tools Path
+   :width: 900
+
+**Container Image**
+
+Optional Docker image or Singularity/Apptainer artifact.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/10_container_image.png
+   :alt: Container Image
+   :width: 900
+
+**Container Definition**
+
+Optional container definition/build script path.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/11_container_definition.png
+   :alt: Container Definition
+   :width: 900
+
+**Container Bindings**
+
+Container bindings table for host->container mounts.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/12_container_bindings.png
+   :alt: Container Bindings
+   :width: 900
+
+**Save**
+
+Saves job configuration changes for the selected job.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/13_save.png
+   :alt: Save
+   :width: 900
+
+**Kill All Jobs If This Job Fails**
+
+Failure policy toggle to stop all jobs if this job fails.
+
+.. image:: ../_static/ui_reference/12_job_config_view_configurations/14_kill_all_jobs_if_this_job_fails.png
+   :alt: Kill All Jobs If This Job Fails
+   :width: 900
+
+Job Configuration View (Notes)
+------------------------------
+
+Notes/editor mode of `JobConfigView`, including write/preview and save/navigation actions.
+
+**Job Config View Notes**
+
+Overview of the job notes editor mode.
+
+.. image:: ../_static/ui_reference/13_job_config_view_notes/01_job_config_view_notes.png
+   :alt: Job Config View Notes
+   :width: 900
+
+**Write**
+
+Write mode for job notes markdown.
+
+.. image:: ../_static/ui_reference/13_job_config_view_notes/02_write.png
+   :alt: Write
+   :width: 900
+
+**Preview**
+
+Preview mode for job notes markdown.
+
+.. image:: ../_static/ui_reference/13_job_config_view_notes/03_preview.png
+   :alt: Preview
+   :width: 900
+
+**Back to Configuration**
+
+Returns to configuration mode from notes or navigates back as shown.
+
+.. image:: ../_static/ui_reference/13_job_config_view_notes/05_configuration_or_back.png
+   :alt: Configuration Or Back
+   :width: 900
+
+
+Run Project Action
+------------------
+
+`Run Project` trigger in the left tree footer (`LeftTreeView`).
+
+**Run Project**
+
+Runs the configured project from the left panel footer.
+
+.. image:: ../_static/ui_reference/14_run_project_button/01_run_project.png
+   :alt: Run Project
+   :width: 900
+
+Run & Log Panel View
+--------------------
+
+Execution-time log panel from `RunView`, including start/stop/completion states.
+
+**Start Replication**
+
+Run view just after execution starts; logs begin streaming.
+
+.. image:: ../_static/ui_reference/15_log_panel_view/01_start_replication.png
+   :alt: Start Replication
+   :width: 900
+
+**Stop Replication**
+
+Stop button and confirmation flow while a run is in progress.
+
+.. image:: ../_static/ui_reference/15_log_panel_view/02_stop_replication.png
+   :alt: Stop Replication
+   :width: 900
+
+**Replication Completed**
+
+Completed-state run view after replication finishes.
+
+.. image:: ../_static/ui_reference/15_log_panel_view/03_replication_completed.png
+   :alt: Replication Completed
+   :width: 900

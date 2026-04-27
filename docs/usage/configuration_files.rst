@@ -15,7 +15,8 @@ Each job configuration file defines a consistent set of path variables:
 - **Replication Path** – Root directory of the current replication (e.g., ``Rep001``).  
 - **Job Path** – Directory corresponding to the current job.  
 - **Main Script Path** – Directory where the main script is located.  
-- **Data Path** – Directory containing the input data specified during replication setup.
+- **Restricted Data Path** – Directory containing the restricted data specified during replication setup.
+- **Non-Restricted Data Path** – Directory containing the non-restricted data specified during replication setup.
 
 These paths are determined dynamically and stored in the configuration file by ReRun, ensuring full portability across systems and environments.
 
@@ -48,10 +49,10 @@ shows how ReRun defines environment paths within Stata’s ``profile.do`` script
    global path_source "`r(data_path)'"
 
 The **replication path** is determined dynamically using the ``find_replication_path`` function,  
-which searches parent directories until it finds the ``config.json`` file that marks the replication root.
+which searches parent directories until it finds the ``rerun_config.json`` file that marks the replication root.
 
 .. warning::
-   The file ``config.json`` must be unique within the replication tree.  
+   The file ``rerun_config.json`` must be unique within the replication tree.  
    If multiple copies exist, ReRun may assign incorrect paths to the job environment.
 
 
@@ -73,7 +74,7 @@ These files serve the same purpose as the Stata configuration — defining the r
 
     ### Paths for data ###
     # Set the path for non perturbed data source
-    with open(REP_PATH / "config.json") as file:
+    with open(REP_PATH / "rerun_config.json") as file:
         config = json.load(file)
     PATH_SOURCE = Path(config.get("data_path", "."))
 
@@ -88,7 +89,7 @@ These files serve the same purpose as the Stata configuration — defining the r
     # Main script path 
     path_main <- file.path(job_path) 
     # Data Path 
-    data_path <- get_json_value(file.path(rep_path, "config.json"), "data_path")
+    data_path <- get_json_value(file.path(rep_path, "rerun_config.json"), "data_path")
 
 Variable Logic
 --------------
@@ -97,9 +98,9 @@ Variable Logic
 - The **Main Script Path** points to the location of the primary execution script.  
   - If the main script resides directly within the job folder, this path equals the job path.  
   - If your job uses a nested folder structure (e.g., ``Job01/scripts/main.do``), ReRun preserves the subfolder structure when copying files.  
-- The **Data Path** points to the dataset directory selected during replication setup and is read from the ``config.json`` file using the appropriate helper function (e.g., ``read_data_path`` or ``get_json_value``).  
+- The **Restricted Data Path** points to the dataset directory selected during replication setup and is read from the ``rerun_config.json`` file using the appropriate helper function (e.g., ``read_data_path`` or ``get_json_value``).  
 
-These conventions ensure that every ReRun job is self-contained, portable, and fully reproducible —  
+These conventions ensure that every ReRun job is self-contained, portable, and reproducible —  
 with no need to modify file paths manually between systems.  
 Your code will execute consistently on any compatible environment, provided that all required dependencies are available.
 
@@ -124,15 +125,9 @@ Local vs Containerized Behavior
 Configuration files differ depending on whether the job runs **locally** or within a **container**.
 
 When running locally, the configuration file adjusts the paths from which the runtime loads modules, packages, or commands, effectively restricting execution to a single controlled environment.  
-These tool dependencies must reside in the **tools** folder of the replication, which is defined in the **Tools Path** field of the Job Configuration Window.
+These tool dependencies must reside in the **tools** folder of the replication, which is defined in the **Tools Path** field of the Job Configuration View.
 
-In **Stata**, this typically corresponds to the ``PLUS`` directory:
-
-.. image:: ../_static/stata_small_example/05_jobconfig_window/14_tools_path_set_to_plus.png
-   :alt: Tools path set to PLUS
-   :width: 640
-
-When a tools path is specified, ReRun creates a folder named ``tools`` within each job, duplicating the structure and contents of the selected source directory.  
+In **Stata**, this typically corresponds to the ``PLUS`` directory. When a tools path is specified, ReRun creates a folder named ``tools`` within each job, duplicating the structure and contents of the selected source directory.  
 The configuration files then adjust accordingly based on the execution mode (local or containerized).
 
 
@@ -169,10 +164,6 @@ For **Python** and **R**, the configuration files include similar path redefinit
     # User-defined libraries
     .libPaths(paths$tools)
 
-.. warning::
-   In Python, if a ``tools`` folder exists, this instruction is always applied.  
-   It is up to the user to include the ``-S`` flag in the **Command** field of the Job Configuration Window  
-   to ensure that Python loads only the standard library modules, avoiding system-wide packages.
 
 These modifications ensure that the runtime environment uses only the libraries, packages, and commands that have been explicitly copied into the replication area, providing strict reproducibility and isolation.
 
@@ -203,4 +194,42 @@ In containerized runs, the ``tools`` folder is still copied into the replication
 This behavior assumes that the containerized runtime already provides a consistent, shareable environment, allowing all users to reproduce analyses reliably without altering core system paths.
 
 
+Multi-step projects
+-------------------
 
+For **multi-step projects**, ReRun also exposes path variables for outputs from previously executed jobs.
+This gives you a stable convention to read artifacts from upstream steps without hardcoding absolute paths.
+
+Naming convention by language:
+
+- **Stata**: ``global path_step##_job##`` and use it as ``${path_step##_job##}``
+- **Python**: ``PATH_STEP##_JOB##``
+- **R**: ``path_step##_job##``
+
+Examples:
+
+.. code-block:: stata
+
+   * Step 1, Job 2 output path
+   // global path_step01_job02 set in profile.do
+
+   * Use in scripts
+   use "${path_step01_job02}/results/final_dataset.dta", clear
+
+.. code-block:: python
+
+   # Step 1, Job 2 output path
+   # PATH_STEP01_JOB02 set in config.py
+
+   output_file = PATH_STEP01_JOB02 / "results" / "final_dataset.parquet"
+
+.. code-block:: R
+
+   # Step 1, Job 2 output path
+   # path_step01_job02 set in config.R
+
+   output_file <- file.path(path_step01_job02, "results", "final_dataset.rds")
+
+These variables are especially useful when a job in **Step N** depends on artifacts generated in **Step N-1**
+or earlier steps. They provide a clear and conventional way to reference prior job outputs across Stata,
+Python, and R.

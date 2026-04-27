@@ -11,11 +11,16 @@ This example illustrates:
 - How ReRun isolates job environments and organizes outputs.
 
 .. warning::
-   To run this example, you must have **Docker** installed and running.  
-   In addition, Docker must be configured to allow **file sharing** with at least your home directory  
-   (e.g. ``C:\Users\user\`` on Windows), because ReRun mounts the home folder into the container  
-   (for example, as ``/mnt/c/Users/user``).  
-   This example assumes that the replication folder, data, and scripts all reside somewhere under your home directory.
+   To run this example, you must have **Docker** installed and running.
+
+   Additionally, ensure that any host directories you bind mount into the container
+   are accessible via Docker's *file sharing settings* (for example, on Windows or macOS).
+
+   You are responsible for specifying the bind mounts in the **Job Configuration View**.
+
+   All project files (replication folder, data, scripts, etc.) must be located within
+   the directories you mount, and those directories must be permitted in Docker’s
+   file sharing configuration.
 
 Example Input Structure
 -----------------------
@@ -24,7 +29,7 @@ Your project directory should contain:
 
 .. code-block:: text
 
-   C:\Users\bpu060275\Desktop\work_container
+   C:\Users\bpu060275\Desktop\rerun_examples\stata_docker
    ├── data\
    │   └── auto.dta
    └── scripts\
@@ -135,103 +140,136 @@ Click **Start New Replication** in the main application window:
 
 .. image:: ../_static/container_example/01_start_new_replication.png
    :alt: Start new replication
-   :width: 640
+   :width: 820
 
 Provide Input Paths
 ~~~~~~~~~~~~~~~~~~~
 
-Specify the **Output Path** and **Data Path**, then click **Start**:
+Specify the **Output Path** and **Data Path**, then click **Proceed**:
 
 .. image:: ../_static/container_example/02_input_paths_and_start.png
    :alt: Input paths and Start button
-   :width: 640
+   :width: 820
 
 Configuring the Step
 --------------------
 
-After initialization, the Steps Window opens.  
-Click **Configure** on Step 1:
+After initialization, in the project explorer, click the **Add Step** button to add one step.
 
-.. image:: ../_static/container_example/03_configure_step.png
+.. image:: ../_static/container_example/03_add_step.png
    :alt: Configure the step
-   :width: 640
+   :width: 820
+
+Then click the **Configure Step** button and add a small description.
+
+.. image:: ../_static/container_example/04_configure_step.png
+   :alt: Configure the step
+   :width: 820
+
+.. image:: ../_static/container_example/05_step_input_text.png
+   :alt: Configure the step
+   :width: 820
 
 Adding the Two Jobs
 -------------------
 
-Click **Add Job** in the Jobs Window:
+To add the first job, click **Add Job** in the first step:
 
-.. image:: ../_static/container_example/04_add_job.png
+.. image:: ../_static/container_example/06_add_job.png
    :alt: Add Job button
-   :width: 640
+   :width: 820
 
-You may add descriptive text to document each job:
-
-.. image:: ../_static/container_example/05_jobs_text_field.png
-   :alt: Job description text field
-   :width: 640
 
 Configuring Job 1
 ~~~~~~~~~~~~~~~~~
 
-Select the job and click **Configure**:
+Click the  **Configure Job** button to configure the first job:
 
-.. image:: ../_static/container_example/06_configure_job1.png
+.. image:: ../_static/container_example/07_configure_job_button.png
    :alt: Configure Job 1
-   :width: 640
+   :width: 820
 
 Set the container execution parameters:
  
 - **Main Path**: your ``scripts`` folder  
 - **Main Script**: ``job1.do``  
+- **Interpreter**: the Stata executable inside the container (e.g., ``stata-mp``)
+
 - **Container Image**: your Docker image with Stata installed ``stata:18``  
-- **Command**: the Stata executable inside the container (e.g., ``stata-mp -b do``)
+- **Container Bindings**: ``C:\Users\bpu060275`` -> ``/mnt/c/Users/bpu060275``
 
-Then save:
+.. image:: ../_static/container_example/08_job1_configuration_paths.png
+   :alt: Job 1 configuration path inputs
+   :width: 820
 
-.. image:: ../_static/container_example/07_job1_configurations_and_save.png
-   :alt: Job 1 configuration and save
-   :width: 640
+.. image:: ../_static/container_example/09_job1_configuration_container.png
+   :alt: Job 1 configuration container inputs
+   :width: 820
 
-Do the same for **Job 2**, changing only the script to ``job2.do``.
+Save the configurations. The app validates the container and ensures that the specified interpreter / executable exists in the container. 
 
-Finally, save all jobs and return to the Steps Window:
+.. image:: ../_static/container_example/10_job1_validation.png
+   :alt: Job 1 configuration validation
+   :width: 820
 
-.. image:: ../_static/container_example/08_save_jobs.png
-   :alt: Save Jobs button
-   :width: 640
+Given that the configurations for **Job 2** will be the same as in **Job 1**, except for the name of the script, we can duplicate 
+**Job 2** by clicking the **Duplicate Job** button.
+
+.. image:: ../_static/container_example/11_job1_duplicate.png
+   :alt: Job 1 duplication
+   :width: 820
+
+Click **Configure Job** in **Job 2**, change the script to ``job2.do``, and save.
+
+
+.. image:: ../_static/container_example/12_job2_script_path.png
+   :alt: Job 2 change script name
+   :width: 820
+
+.. image:: ../_static/container_example/13_job2_save.png
+   :alt: Job 2 save
+   :width: 820
 
 Running the Parallel Jobs
 -------------------------
 
-Back in the Steps Window, click **Run Steps**:
+In the left panel, click the **Run Project** button.
 
-.. image:: ../_static/container_example/09_run_steps.png
-   :alt: Run Steps button
-   :width: 640
+.. image:: ../_static/container_example/14_run_project.png
+   :alt: Run Project
+   :width: 820
 
-ReRun opens the **Execution Window**.  
-Each job starts its **own Docker container instance**, and because both jobs are launched for the same step, they run **in parallel** as independent processes.
+ReRun opens the **Execution View**.  
+Each job starts its **own Docker container instance**, and because both jobs are launched for the same step, they run **in parallel** as independent processes. 
+Since the jobs run in container mode, ReRun first inspects the container metadata and writes it to ``Job##/container_info.json``.
+
+
+.. image:: ../_static/container_example/15_inspecting_container_metadata.png
+   :alt: Inspecting container metadata
+   :width: 820
+
+Then the jobs run.
+
 
 Jobs starting:
 
-.. image:: ../_static/container_example/10_running_window_01.png
-   :alt: Execution window showing jobs starting
-   :width: 640
+.. image:: ../_static/container_example/16_jobs_starting.png
+   :alt: Jobs starting
+   :width: 820
 
 Both jobs executing:
 
-.. image:: ../_static/container_example/10_running_window_02.png
-   :alt: Running both jobs
-   :width: 640
+.. image:: ../_static/container_example/17_jobs_running.png
+   :alt: Jobs running
+   :width: 820
 
 Job progress and completion:
 
-.. image:: ../_static/container_example/10_running_window_03.png
-   :alt: Execution window with progress
-   :width: 640
+.. image:: ../_static/container_example/18_jobs_finished.png
+   :alt: Jobs finished
+   :width: 820
 
-In this example, the entire step finished in **42 seconds** because both jobs were executed
+In this example, the entire step finished in **41 seconds** because both jobs were executed
 at the same time.  
 If the same two jobs were run one after the other, the total runtime would be **over one minute**.
 
@@ -251,21 +289,22 @@ After the run completes, the replication folder looks like:
 .. code-block:: text
 
    Replications/Rep001
-   ├── config.json
-   ├── datafiles.txt
-   ├── manifest.json
-   ├── log.txt
-   ├── readme.md
-   ├── replication_tree.txt
+   ├── rerun_version
+   ├── rerun_config.json
+   ├── rerun_log.txt
+   ├── rerun_readme.md
+   ├── rerun_replication_tree.txt
    ├── Step01/
-   │   ├── readme.md
+   │   ├── rerun_readme.md
    │   ├── Job01/
+   │   │   ├── container_info.json   
    │   │   ├── job1.do
    │   │   ├── job1_example.log
    │   │   ├── job1_means_by_foreign.csv
    │   │   ├── profile.do
    │   │   └── job1.log
    │   └── Job02/
+   │   │   ├── container_info.json 
    │       ├── job2.do
    │       ├── job2_example.log
    │       ├── job2_means_by_weightbin.csv
@@ -281,7 +320,7 @@ Differences Between Local and Containerized Execution
 When running locally or inside a Docker/Singularity container, ReRun produces the same replication structure,  
 but certain configuration details differ. This section describes the main differences, focusing on:
 
-- Path handling in ``config.json``  
+- Path handling in ``rerun_config.json``  
 - How ReRun maps host directories into Docker  
 - Differences in the execution command  
 - Stata license handling in a container
@@ -289,37 +328,36 @@ but certain configuration details differ. This section describes the main differ
 Path Differences
 ~~~~~~~~~~~~~~~~
 
-In **local execution**, paths in ``config.json`` correspond directly to the file system of the host.  
+In **local execution**, paths in ``rerun_config.json`` correspond directly to the file system of the host.  
 For example:
 
 .. code-block:: json
-   :caption: Local ``config.json`` (excerpt)
+   :caption: Local ``rerun_config.json`` (excerpt)
 
    {
-       "data_path": "C:/Users/bpu060275/Desktop/work_container/data"
+       "data_path": "C:/Users/bpu060275/Desktop/rerun_examples/stata_docker/data"
    }
 
 However, during **containerized execution**, ReRun replaces host paths with **container-mounted paths**,  
 so that the runtime inside Docker can correctly access the data:
 
 .. code-block:: json
-   :caption: Containerized ``config.json`` (excerpt)
+   :caption: Containerized ``rerun_config.json`` (excerpt)
 
    {
-       "data_path": "/mnt/c/Users/bpu060275/Desktop/work_container/data"
+       "data_path": "/mnt/c/Users/bpu060275/Desktop/rerun_examples/stata_docker/data"
    }
 
 These paths only exist **inside the container**, not on the host.
 
-ReRun automatically performs this mapping by mounting the user’s home directory into Docker and  
-rewriting paths accordingly, guaranteeing that scripts using the ``path_source`` global can access  
+ReRun performs this mapping by mounting the directories specified by the user in the **Container bindings** field into Docker and rewriting paths accordingly, guaranteeing that scripts using the ``path_source`` global can access  
 data using the container’s file-system layout.
 
 .. warning::
    When **loading an existing replication** from a containerized execution, 
-   the ``data_path`` stored in ``config.json`` refers to   
+   the ``data_path`` stored in ``rerun_config.json`` refers to   
    the **container path**, not the host path.  
-   Therefore, users **must re-enter the correct Data Path** in the application, so ReRun can  
+   Therefore, users **must re-enter the correct Data Path** in the restricted data path field, so ReRun can  
    regenerate the correct host → container path mapping.  
 
 Command Differences
@@ -340,34 +378,23 @@ Below is the full command that ReRun produces for a Stata job:
    :caption: Containerized execution command
 
    docker run --rm ^
-       -v C:\Users\bpu060275:/mnt/c/Users/bpu060275 ^
-       -v C:\Users\bpu060275\stata.lic:/usr/local/stata/stata.lic ^
-       -w /mnt/c/Users/bpu060275/Desktop/work_container/Replications/Rep001/Step01/Job01 ^
-       stata:18 ^
-       stata-mp -b do job1.do
+      -w /mnt/c/Users/bpu060275/Desktop/rerun_examples/stata_docker/Replications/Rep001/Step01/Job01 
+      -v C:\Users\bpu060275:/mnt/c/Users/bpu060275 ^
+      stata:18 ^
+      stata-mp -b do job1.do
 
 Below is an explanation of each part:
 
-#. ``-v C:\Users\bpu060275:/mnt/c/Users/bpu060275``
-
-   ReRun mounts the **entire home directory** into the container.  
-   This ensures that all replication files, steps, jobs, and tools remain accessible.  
-   All paths inside the job are rewritten using this mount (e.g., ``/mnt/c/Users/...``).
-
-#. ``-v C:\Users\bpu060275\stata.lic:/usr/local/stata/stata.lic``
-
-   ReRun locates ``stata.lic`` **automatically in the user’s home directory** and mounts it into  
-   the default Stata license path inside the container.
-
-   .. warning::
-      If ``stata.lic`` cannot be found in the user’s home directory, the container will fail  
-      to start Stata, and the job will terminate with an error.  
-      Users should ensure that ``stata.lic`` exists in their home folder.
-
-#. ``-w /mnt/c/Users/bpu060275/Desktop/work_container/Replications/Rep001/Step01/Job01``  
+#. ``-w /mnt/c/Users/bpu060275/Desktop/rerun_examples/stata_docker/Replications/Rep001/Step01/Job01``  
 
    Sets the **working directory** of the container to the Job Path inside the container,  
    ensuring Stata loads the correct ``profile.do`` and writes logs to the job folder.
+
+#. ``-v C:\Users\bpu060275:/mnt/c/Users/bpu060275``
+
+   ReRun mounts host directories into the container according to the values provided in **Job Config Bindings**. 
+   This ensures that all replication files, steps, jobs, and tools remain accessible.  
+   All paths inside the job are rewritten using these mounts (e.g., ``/mnt/c/Users/...``).
 
 #. ``stata:18``
 
@@ -394,7 +421,7 @@ Summary of Key Differences
      - ``docker run … stata-mp -b do``
    * - License handling
      - Uses local installation
-     - ``stata.lic`` must exist in home directory
+     - *stata.lic* inside container / Bindings field
    * - Directory handling
      - Normal filesystem
      - Home directory mounted into container

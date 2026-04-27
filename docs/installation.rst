@@ -2,7 +2,7 @@ Installation
 ============
 
 This page explains how to install and configure **ReRun**.  
-ReRun runs on **Windows** and **Linux**, and can execute analyses with **locally installed software** (Stata, Python, R) or inside **containers** (Docker or Singularity) for reproducibility.
+ReRun runs on **Windows**, **MacOS** and **Linux**, and can execute analyses with **locally installed software** (Stata, Python, R) or inside **containers** (Docker or Singularity) for reproducibility.
 
 
 1. System Requirements
@@ -12,7 +12,7 @@ ReRun runs on **Windows** and **Linux**, and can execute analyses with **locally
 
 - Windows 10 or later
 - Linux
-- macOS: currently limited (FilePicker bug in Flet v0.28.3)
+- macOS
 
 .. note::
 
@@ -26,13 +26,16 @@ ReRun runs on **Windows** and **Linux**, and can execute analyses with **locally
 
 **Runtime**
 
-- Python 3.10+
+- Python 3.12+
 
 **Requirements**
 
-- ``flet-cli>=0.28.3``
-- ``flet-desktop>=0.28.3``
-- ``psutil``
+- ``flet>=0.80.5``
+- ``flet-cli>=0.80.5``
+- ``flet-desktop>=0.80.5``
+- ``psutil>=7.2.2``
+- ``python-magic-bin>=0.4.14`` (Windows)
+- ``tro-utils>=0.4.3``
 
 **Analysis Runtimes (as needed)**
 
@@ -69,9 +72,17 @@ Change directory to the cloned/extracted folder:
 
 It is recommended to isolate ReRun’s dependencies.
 
+Using ``venv`` 
+
 .. code-block:: bash
 
    python -m venv .venv
+
+or ``uv`` with a Python version of your choice
+
+.. code-block:: bash
+
+   uv venv --python 3.12
 
 Activate the virtual environment:
 
@@ -81,7 +92,7 @@ Activate the virtual environment:
 
    .venv\Scripts\activate
 
-**Linux:**
+**Linux/macOS:**
 
 .. code-block:: bash
 
@@ -91,10 +102,17 @@ Activate the virtual environment:
 4. Install Dependencies
 -----------------------
 
+Using a requirements file
+
 .. code-block:: bash
 
    pip install -r requirements.txt
 
+or ``uv``
+
+.. code-block:: bash
+
+   uv sync
 
 
 5. Launch ReRun
@@ -104,7 +122,8 @@ From the project root (with the virtual environment active):
 
 .. code-block:: bash
 
-   python main.py
+   cd src/rerun
+   python -m main
 
 A desktop window should open with the ReRun interface.  
 If you see errors in the terminal, check the messages and consult the Troubleshooting section.

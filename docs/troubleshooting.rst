@@ -22,7 +22,6 @@ These files may contain:
 - stack traces for internal errors,
 - issues with file paths or permissions,
 - UI or filesystem-related exceptions,
-- container execution errors,
 - unexpected failures loading or saving replications.
 
 
@@ -55,9 +54,7 @@ Common Sources of Errors
 
 Although most issues will be self-explanatory inside the logs, the following are frequent causes:
 
-- **Missing Stata license in Docker/Singularity:** if running Stata inside a container, ``stata.lic`` must exist in the home folder or the container will fail to start.
-
-- **Invalid container command:** errors will appear if the command does not match the tool available inside the image (e.g., ``stata-mp`` vs ``stata-se``).
+- **Missing Stata license in Docker/Singularity:** if running Stata inside a container, ``stata.lic`` must exist in the container or be provided as a container binding.
 
 - **File-permission issues:** ReRun must be able to read/write inside the output directory and replication folder.
 

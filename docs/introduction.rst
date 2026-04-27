@@ -35,9 +35,8 @@ Key Features
 - **Containerized execution** – Run analyses in Docker or Singularity containers for full reproducibility.
 - **Local or container mode** – Choose between your local runtime or isolated environments.
 - **Transparent execution** – Each job produces logs, timestamps, and status information.
-- **Cross-platform compatibility** – Works on Windows and Linux systems.    
-  - *Note: macOS support is limited due to a FilePicker issue in Flet v0.28.3.* 
-- **Certified reproducibility** – Compute hashes for all input and output files allowing verification of results without rerunning the computation. 
+- **Cross-platform compatibility** – Works on Windows, MacOS, and Linux systems.    
+- **Certified reproducibility** – Integrates with `TRACE tools <https://github.com/transparency-certified/tro-utils>`_ to certify reproducibility of analyses.
 
 
 Who Uses ReRun
@@ -82,8 +81,8 @@ Supported Platforms
      - Supported
      - Fully tested
    * - **macOS**
-     - Limited
-     - FilePicker bug in Flet v0.28.3
+     - Supported
+     - Fully tested
 
 Next Steps
 ----------
