@@ -6,15 +6,15 @@ This example illustrates how to build a **multi-language, multi-step workflow** 
 - **Step 1:** two jobs running **in parallel** (one in **Stata**, one in **Python**)  
 - **Step 2:** a Python job that **consumes the outputs** generated in Step 1  
 - **Execution in a Linux environment**, specifically in **BPLIM Server**, using a
-  Singularity image that already includes ReRun, Stata, and Python
+  Singularity image that includes Stata and Python
 
 Although this example was executed in the BPLIM environment, any user can replicate the workflow
 on a different system (local machine or server) as long as Stata and Python are installed — either
 locally or within a container (Docker, Singularity, Apptainer).
 
 .. note::
-   In the BPLIM external server, the runtime environment (Stata + Python + ReRun) is already included
-   in a Singularity image.  
+   In the BPLIM external server, the runtime environment (Stata + Python) is already included
+   in the Singularity image.  
    Because all tools are pre-installed, the **Tools** field in the Job Configuration window is left empty.
 
 
@@ -102,11 +102,14 @@ Configure Job 1 - Step 1 (Stata)
    :alt: Job 1 configuration (Stata)
    :width: 820
 
+.. image:: ../_static/mixed_example/06_step1_job1_container.png
+   :alt: Job 1 container (Stata)
+   :width: 820
+
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
 - **Main Script** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts/job1_stata.do``
-- **Container Image** → *leave empty*  
-  (we rely on the BPLIM-provided Apptainer image)
 - **Interpreter / Executable** → ``stata-mp``
+- **Container Image** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/container/stata_python.sif``
 
 Save, and add a small description.
 
@@ -122,9 +125,14 @@ Configure Job 2 - Step 1 (Python)
    :alt: Job 2 configuration (Python)
    :width: 820
 
+.. image:: ../_static/mixed_example/08_step1_job2_container.png
+   :alt: Job 2 container (Python)
+   :width: 820
+
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
 - **Main Script** → ``job2_python_descriptives.py``
 - **Interpreter / Executable** → ``python3.10``
+- **Container Image** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/container/stata_python.sif``
 
 Save, and add a small description.
 
@@ -147,9 +155,14 @@ Configure Job 1 - Step 2 (Python)
    :alt: Job 3 configuration
    :width: 820
 
+.. image:: ../_static/mixed_example/10_step2_job1_container.png
+   :alt: Job 3 container
+   :width: 820
+
 - **Main Path** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts``
 - **Main Script** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/scripts/job3_python_combine.py``
 - **Command** → ``python3.10``
+- **Container Image** → ``/bplimext/projects/pxxx_BPLIM/work_area/rerun/container/stata_python.sif``
 
 Save the configurations and add a small description.
 
@@ -177,15 +190,21 @@ Step 1 — Stata and Python jobs running **in parallel**:
    :alt: Step 1 parallel execution
    :width: 820
 
+Step 1 — Jobs running:
+
+.. image:: ../_static/mixed_example/13_jobs_running.png
+   :alt: Step 1 running
+   :width: 820
+
 Step 1 finishing:
 
-.. image:: ../_static/mixed_example/13_step1_finished.png
+.. image:: ../_static/mixed_example/14_step1_finished.png
    :alt: Step 1 finishing
    :width: 820
 
 Step 2 — Python job running **after both Step 1 jobs finish** and replication finished after all steps completion:
 
-.. image:: ../_static/mixed_example/14_step2_start_finish.png
+.. image:: ../_static/mixed_example/15_step2_start_finish.png
    :alt: Replication finished
    :width: 820
 
@@ -431,6 +450,7 @@ After running the replication on the BPLIM server:
    ├── Step01/
    │   ├── rerun_readme.md
    │   ├── Job01/
+   │   │   ├── container_info.json
    │   │   ├── job1_stata.do
    │   │   ├── job1_stata.log
    │   │   ├── profile.do
@@ -439,6 +459,7 @@ After running the replication on the BPLIM server:
    │   │       ├── stata_job1.log
    │   │       └── stata_summary.csv
    │   └── Job02/
+   │       ├── container_info.json
    │       ├── config.py
    │       ├── job2_python_descriptives.py
    │       ├── python_requirements.txt
@@ -450,6 +471,7 @@ After running the replication on the BPLIM server:
    └── Step02/
       ├── rerun_readme.md
       └── Job01/
+         ├── container_info.json
          ├── config.py
          ├── job3_python_combine.py
          ├── python_requirements.txt

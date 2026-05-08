@@ -186,7 +186,7 @@ Clears the selected path from the current path input.
 
 **Output Path**
 
-Optional output path override for the loaded replication.
+Output path field for selecting where replication artifacts are written.
 
 .. image:: ../_static/ui_reference/04_load_project_view/05_output_path.png
    :alt: Output Path
